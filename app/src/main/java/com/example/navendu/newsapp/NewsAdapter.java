@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 /**
@@ -37,16 +35,11 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.list_image);
         if (news.getThumbnail() != null) {
-            Picasso.with(getContext())
-                    .load(news.getThumbnail())
-                    .placeholder(R.drawable.ic_photo_black_48dp)
-                    .fit()
-                    .into(imageView);
+            new ImageDownloaderTask(imageView).execute(news.getThumbnail());
             imageView.setVisibility(View.VISIBLE);
         } else {
             imageView.setVisibility(View.GONE);
         }
-
         return convertView;
     }
 }
