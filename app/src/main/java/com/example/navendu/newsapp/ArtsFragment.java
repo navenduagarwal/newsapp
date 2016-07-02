@@ -1,6 +1,9 @@
 package com.example.navendu.newsapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,12 @@ import java.util.ArrayList;
 public class ArtsFragment extends Fragment {
     private String category;
     private NewsAdapter mNewsListAdapter;
+
+    private static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connection = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connection.getActiveNetworkInfo();
+        return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +55,13 @@ public class ArtsFragment extends Fragment {
     }
 
     public void updateCategoryResults() {
-        FetchNewsTask newsTask = new FetchNewsTask(mNewsListAdapter);
-        category = "artanddesign";
-        newsTask.execute(category);
+        if (isNetworkAvailable(getContext())) {
+            FetchNewsTask newsTask = new FetchNewsTask(mNewsListAdapter);
+            category = "artanddesign";
+            newsTask.execute(category);
+        } else {
+            Toast.makeText(getContext(), "No Internet Connection Available\nTry Again Later", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
