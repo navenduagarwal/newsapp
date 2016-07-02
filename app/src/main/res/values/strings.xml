@@ -1,0 +1,18 @@
+<resources>
+    <!-- Title for the application. [CHAR LIMIT=12] -->
+    <string name="app_name">NewsApp</string>
+
+    <!-- Category name for business [CHAR LIMIT=20] -->
+    <string name="category_business">Business</string>
+
+    <!-- Category name for Leadership [CHAR LIMIT=20] -->
+    <string name="category_travel">Travel</string>
+
+    <!-- Category name for Leadership [CHAR LIMIT=20] -->
+    <string name="category_arts">Art and Design</string>
+
+    <!-- label for menu [CHAR LIMIT=10] -->
+    <string name="action_refresh">Refresh</string>
+
+</resources>
+
